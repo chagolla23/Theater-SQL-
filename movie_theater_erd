@@ -1,0 +1,98 @@
+CREATE TABLE customer (
+  customer_id serial unique,
+  first_name varchar(50),
+  last_name varchar(50)
+);
+
+CREATE TABLE employee (
+  employee_id serial primary key,
+  first_name varchar(50),
+  last_name varchar(50)
+);
+
+CREATE TABLE theater (
+  theater_id serial primary key,
+  theater_name varchar(50),
+  address varchar(50)
+);
+
+CREATE TABLE ticket (
+  ticket_id serial unique,
+  movie_hall serial unique,
+  movie_date  date default current_date,
+  movie_time float,
+  seat_row varchar(50),
+  seat_number int,
+  runtime float 
+);
+
+
+
+CREATE TABLE concessions (
+  concessions_id serial unique,
+  tickets_id int,
+  hotdog_price float,
+  popcorn_price float,
+  soda_price float,
+  candy_price float,
+  snacks_total float
+);
+
+
+CREATE TABLE ticket_invoice (
+  invoice_id serial primary key,
+  movie_id int,
+  auditorium_id int,
+  customer_id int,
+  employee_id int, 
+  concessions_id int,
+  final_total float,
+  foreign key(customer_id) references customer(customer_id),
+  foreign key(employee_id) references employee(employee_id),
+  foreign key(customer_id) references customer(customer_id)
+);
+
+CREATE TABLE movie (
+ movie_id serial primary key,
+ tickets_id int,
+ customer_id int,
+ movie_name varchar(50),
+ rating varchar(50)
+);
+
+insert into customer(first_name, last_name)
+values('Jon', 'Chaglla');
+
+insert into customer(first_name, last_name)
+values('Anavay', 'Sierra');
+
+insert into employee(first_name, last_name)
+values('Jerry', 'Ramirez');
+
+insert into ticket(movie_hall, movie_time, seat_row, seat_number, runtime)
+values('4', '7.15', 'W', '7', 90)
+
+insert into concessions(hotdog_price, popcorn_price, soda_price, candy_price, snacks_total)
+values('4', '7', '2', '5', 18)
+
+insert into concessions(hotdog_price, popcorn_price, soda_price, candy_price, snacks_total)
+values('6', '7', '2', '5', 18)
+
+insert into theater(theater_name, address)
+values ('Look Cinema', '410 S Myrtle Ave, Monrovia, CA 91016')
+
+insert into movie(tickets_id, customer_id, movie_name, rating)
+values('1', '1', 'The Dark Knight', 'PG-13')
+
+insert into ticket_invoice(movie_id, customer_id, employee_id, concessions_id, final_total)
+values('1', '1', '1', '1', '30.50')
+
+
+
+
+
+
+
+
+  
+
